@@ -1,19 +1,20 @@
 import { sva } from "../../../../styled-system/css";
 
 export const InputFieldRecipe = sva({
-  slots: ['root', 'input', 'labelWrapper', 'label'],
+  slots: ['root', 'input', 'labelWrapper', 'label', 'errorMessage'],
   base: {
     root: {
-      display: 'flex', gap: '2', flexDir: 'column', fontWeight: 'bold', width: 'full', sm: {width: '1/2'}
+      display: 'flex', gap: '2', flexDir: 'column', fontWeight: 'bold', width: 'full'
     },
     input: {
       borderWidth: '1px', borderRadius: 'sm', fontWeight: 'normal',
-      _focus: {outline: '2px solid #00BB77' }
+      _focus: { outline: '2px solid #00BB77' }
     },
     labelWrapper: {
       display: 'flex',
-      flexWrap:'wrap',
-      gap: '2'
+      flexWrap: 'wrap',
+      gap: '2',
+      mb:'4',
     },
     label: {
       color: 'white',
@@ -26,7 +27,11 @@ export const InputFieldRecipe = sva({
       _hover: {
         transform: 'translateY(-2px)'
       }
-    }
+    },
+    errorMessage: {
+      fontSize: 'sm',
+      color: 'red.500',
+    },
   },
   variants: {
     size: {
@@ -46,11 +51,11 @@ export const InputFieldRecipe = sva({
     style: {
       primary: {
         root: {},
-        input: {outline: '1px solid #00BB77', border: 'none', color: 'black'}
+        input: { outline: '1px solid #00BB77', border: 'none', color: 'black' }
       },
       secondary: {
         root: {},
-        input: {outline: '1px solid #00BB77', border: 'none', color: '#00BB77'}
+        input: { outline: '1px solid #00BB77', border: 'none', color: '#00BB77' }
       }
     }
   },

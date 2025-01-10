@@ -76,7 +76,7 @@ export function HoursField({
           ))}
         </ul>
       </label>
-      {errorMessage && <span className={css({fontSize: 'sm', color: 'red.500'})}>{errorMessage}</span>}
+      {errorMessage && <span className={classes.errorMessage}>{errorMessage}</span>}
     </>
   );
 }
