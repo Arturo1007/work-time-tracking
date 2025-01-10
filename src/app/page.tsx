@@ -3,6 +3,7 @@ import { flex } from "../../styled-system/patterns";
 import Image from "next/image";
 import InputField, { HoursField } from "./components/input-field/InputField";
 import Button from "./components/button/Button";
+import Time, { TimeWrapper } from "./components/time/Time";
 
 export default function Home() {
   // Calculate Current Date.
@@ -53,7 +54,14 @@ export default function Home() {
         </div>
       </div>
       {/* Middle section */}
-      <form className={css({ pt: "8", fontSize: "xl", width:'full', sm: {width: '1/2'} })}>
+      <form
+        className={css({
+          pt: "8",
+          fontSize: "xl",
+          width: "full",
+          sm: { width: "1/2" },
+        })}
+      >
         <InputField
           description="Task description:"
           placeholder="Type your description here"
@@ -62,8 +70,23 @@ export default function Home() {
           description="Amount of hours:"
           placeholder="30m, 1h, 1h 30m"
         />
-        <Button btnText="Submit"/>
+        <Button btnText="Submit" />
       </form>
+      <h2
+        className={css({
+          fontSize: "xl",
+          color: "#00BB77",
+          mt: "2",
+          fontWeight: "bold",
+        })}
+      >
+        Today:{" "}
+      </h2>
+      <TimeWrapper>
+        <Time description="Daily" minutes={60} style="primary" />
+        <Time description="Working on ticket #7664" minutes={120} style="secondary"/>
+        <Time description="Overflow" minutes={180} style="terciary" />
+      </TimeWrapper>
     </>
   );
 }

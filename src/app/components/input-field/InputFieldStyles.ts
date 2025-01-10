@@ -4,7 +4,7 @@ export const InputFieldRecipe = sva({
   slots: ['root', 'input', 'labelWrapper', 'label', 'errorMessage'],
   base: {
     root: {
-      display: 'flex', gap: '2', flexDir: 'column', fontWeight: 'bold', width: 'full'
+      display: 'flex', gap: '2', flexDir: 'column', fontWeight: 'bold', width: 'full', fontSize:'xl'
     },
     input: {
       borderWidth: '1px', borderRadius: 'sm', fontWeight: 'normal',
@@ -24,6 +24,7 @@ export const InputFieldRecipe = sva({
       bg: '#00BB77',
       cursor: 'pointer',
       transition: 'transform .2s ease',
+      fontSize:'lg',
       _hover: {
         transform: 'translateY(-2px)'
       }

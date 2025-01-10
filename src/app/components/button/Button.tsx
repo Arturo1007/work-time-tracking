@@ -15,7 +15,7 @@ export default function Button({btnText} :button) {
         p: 2,
         px: 3,
         rounded: "md",
-        fontSize: "xl",
+        fontSize: "lg",
         fontWeight: "bold",
         width: "full",
         transition: 'transform .2s ease',
