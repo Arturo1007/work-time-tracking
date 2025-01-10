@@ -14,7 +14,9 @@ export default function Time({ description, minutes, style }: Time) {
   const timeClasses = timeRecipe({ style });
   return (
     <div className={timeClasses.root}>
-      <p><b>[{minutes}]</b> {description}</p>
+      <p>
+        <b>[{minutes}]</b> {description}
+      </p>
       <a href="" className={timeClasses.close}>
         <Image
           src={"/assets/icons/close.png"}
@@ -28,18 +30,31 @@ export default function Time({ description, minutes, style }: Time) {
 }
 
 type TimeWrapper = {
+  title: string,
   children: ReactNode;
 };
 
-export function TimeWrapper({ children }: TimeWrapper) {
+export function TimeWrapper({ children, title }: TimeWrapper) {
   return (
-    <div
-      className={cx(
-        flex({ gap: "1", direction: "column" }),
-        css({ mt: "4", borderTop: " 1px solid #00BB77", py: "2" })
-      )}
-    >
-      {children}
-    </div>
+    <>
+      <h2
+        className={css({
+          fontSize: "xl",
+          color: "#00BB77",
+          mt: "2",
+          fontWeight: "bold",
+        })}
+      >
+        {title}
+      </h2>
+      <div
+        className={cx(
+          flex({ gap: "1", direction: "column" }),
+          css({ mt: "4", borderTop: " 1px solid #00BB77", py: "2" })
+        )}
+      >
+        {children}
+      </div>
+    </>
   );
 }
