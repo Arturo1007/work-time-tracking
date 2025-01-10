@@ -1,95 +1,65 @@
+import { css, cx } from "../../styled-system/css";
+import { flex } from "../../styled-system/patterns";
 import Image from "next/image";
-import styles from "./page.module.css";
+import InputField, { HoursField } from "./components/input-field/InputField";
+
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // Calculate Current Date.
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+  if (dd < 10) dd = 0 + dd;
+  if (mm < 10) mm = 0 + mm;
+  const formattedToday = dd + "/" + mm + "/" + yyyy;
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  return (
+    <>
+      {/* Top section */}
+      <div className={flex({ direction: "row", justify: "space-between" })}>
+        <div>
+          <h2
+            className={css({
+              fontWeight: "bold",
+              fontSize: "2xl",
+              color: "#00BB77",
+            })}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+            Hi Arturo
+          </h2>
+          <p className={css({ fontSize: "xl", color: "black" })}>
+            Log your work hours:
+          </p>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
+          className={cx(
+            css({
+              fontSize: "xl",
+              fontWeight: "bold",
+              color: "#00BB77",
+            }),
+            flex({ align: "center" })
+          )}
         >
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src={"/assets/icons/calendar.png"}
+            alt="Clock icon"
+            width={24}
+            height={24}
+            className={css({ mr: "1" })}
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          {formattedToday}
+        </div>
+      </div>
+      {/* Middle section */}
+      <form className={css({ pt: "8", fontSize: "xl" })}>
+        <InputField
+          description="Task description:"
+          placeholder="Type your description here"
+        />
+        <HoursField description="Amount of hours:" placeholder="30m, 1h, 1h 30m"/>
+      </form>
+    </>
   );
 }
