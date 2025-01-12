@@ -7,6 +7,7 @@ import { validateFormat } from "@/app/utils/TimeSyntaxValidation";
 type inputField = {
   description: string;
   placeholder: string;
+  name: string,
   style?: "primary" | "secondary";
   size?: "sm" | "md" | "lg";
 };
@@ -16,12 +17,13 @@ export default function InputField({
   placeholder,
   style,
   size,
+  name,
 }: inputField) {
-  const classes = InputFieldRecipe({ size, style });
+  const classes = InputFieldRecipe({ size, style});
   return (
     <label className={cx(classes.root, css({ color: "#00BB77" }))}>
       {description}
-      <input type="text" placeholder={placeholder} className={classes.input} />
+      <input type="text" placeholder={placeholder} className={classes.input} name={name} />
     </label>
   );
 }
@@ -31,6 +33,7 @@ export function HoursField({
   placeholder,
   style,
   size,
+  name,
 }: inputField) {
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -60,6 +63,7 @@ export function HoursField({
           placeholder={placeholder}
           className={classes.input}
           value={inputValue}
+          name={name}
           onChange={handleChange}
         />
         <ul className={classes.labelWrapper}>
