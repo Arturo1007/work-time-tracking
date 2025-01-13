@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import { InputFieldRecipe } from "./InputFieldStyles";
 import { validateFormat } from "@/app/utils/TimeSyntaxValidation";
@@ -7,7 +7,7 @@ import { validateFormat } from "@/app/utils/TimeSyntaxValidation";
 type inputField = {
   description: string;
   placeholder: string;
-  name: string,
+  name: string;
   style?: "primary" | "secondary";
   size?: "sm" | "md" | "lg";
 };
@@ -19,11 +19,16 @@ export default function InputField({
   size,
   name,
 }: inputField) {
-  const classes = InputFieldRecipe({ size, style});
+  const classes = InputFieldRecipe({ size, style });
   return (
     <label className={cx(classes.root, css({ color: "#00BB77" }))}>
       {description}
-      <input type="text" placeholder={placeholder} className={classes.input} name={name} />
+      <input
+        type="text"
+        placeholder={placeholder}
+        className={classes.input}
+        name={name}
+      />
     </label>
   );
 }
@@ -35,13 +40,15 @@ export function HoursField({
   size,
   name,
 }: inputField) {
-  const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const classes = InputFieldRecipe({ size, style });
   const labels = ["5m", "10m", "15m", "30m", "1h", "1h 30m", "2h"];
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = (value: string) => {
-    setInputValue(value);
+    if (inputRef.current) {
+      inputRef.current.value = value;
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +58,7 @@ export function HoursField({
     } else {
       setErrorMessage("The value is not formatted corretly.");
     }
-    setInputValue(value);
+    event.target.value = value;
   };
 
   return (
@@ -62,9 +69,9 @@ export function HoursField({
           type="text"
           placeholder={placeholder}
           className={classes.input}
-          value={inputValue}
           name={name}
           onChange={handleChange}
+          ref={inputRef}
         />
         <ul className={classes.labelWrapper}>
           {labels.map((time) => (
@@ -80,7 +87,9 @@ export function HoursField({
           ))}
         </ul>
       </label>
-      {errorMessage && <span className={classes.errorMessage}>{errorMessage}</span>}
+      {errorMessage && (
+        <span className={classes.errorMessage}>{errorMessage}</span>
+      )}
     </>
   );
 }

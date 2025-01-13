@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import InputField, { HoursField } from '../input-field/InputField'
 import Button from '../button/Button'
