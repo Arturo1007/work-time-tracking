@@ -28,6 +28,7 @@ export default function InputField({
         placeholder={placeholder}
         className={classes.input}
         name={name}
+        required
       />
     </label>
   );
@@ -46,18 +47,13 @@ export function HoursField({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = (value: string) => {
-    if (inputRef.current) {
-      inputRef.current.value = value;
-    }
+    if (validateFormat(value)) setErrorMessage(""); else setErrorMessage("The value is not formatted corretly.");
+    if (inputRef.current) inputRef.current.value = value;
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (validateFormat(value)) {
-      setErrorMessage("");
-    } else {
-      setErrorMessage("The value is not formatted corretly.");
-    }
+    if (validateFormat(value)) setErrorMessage(""); else setErrorMessage("The value is not formatted corretly.");
     event.target.value = value;
   };
 
@@ -72,6 +68,7 @@ export function HoursField({
           name={name}
           onChange={handleChange}
           ref={inputRef}
+          required
         />
         <ul className={classes.labelWrapper}>
           {labels.map((time) => (
