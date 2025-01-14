@@ -1,7 +1,7 @@
 "use client";
 import React, { useActionState } from "react";
 import InputField, { HoursField } from "../input-field/InputField";
-import Button from "../submit-btn/SubmitBtn";
+import SubmitBtn from "../submit-btn/SubmitBtn";
 import { css } from "../../../../styled-system/css";
 import { createTime } from "@/app/libs/actions";
 import FormErrorBox from "../form-error-box/FormErrorBox";
@@ -38,7 +38,7 @@ export default function FormNewTime() {
         placeholder="30m, 1h, 1h 30m"
         name="amount-of-hours"
       />
-      <Button label="Create" />
+      <SubmitBtn label="Create" />
     </form>
   );
 }

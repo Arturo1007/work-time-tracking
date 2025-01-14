@@ -26,7 +26,7 @@ export default function FormErrorBox({
   else if (!success && errors.length > 0 && message) {
     return (
       <ul className={classes.root}>
-        <h2 className={classes.title}>{message}:</h2>
+        <h2 className={classes.title}>{message}</h2>
         {errors.map((error, index) => (
           <li key={index} className={classes.list}>
             {error.message}
