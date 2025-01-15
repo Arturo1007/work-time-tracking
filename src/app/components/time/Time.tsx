@@ -1,36 +1,69 @@
-import { ReactNode } from "react";
+"use client";
+import { ReactNode, useActionState } from "react";
 import { timeRecipe } from "./TimeStyle";
 import { flex } from "../../../../styled-system/patterns";
 import { css, cx } from "../../../../styled-system/css";
 import Image from "next/image";
+import { deleteTime } from "@/app/libs/actions";
+import { Time as TimeTypes } from "@prisma/client";
 
-type Time = {
-  description: string;
-  minutes: number;
-  style?: "primary" | "secondary" | "terciary";
-};
+type TimeWithoutDates = Omit<TimeTypes, "createAt" | "updateAt">;
 
-export default function Time({ description, minutes, style }: Time) {
+export default function Time({
+  id,
+  description,
+  minutesAmount,
+}: TimeWithoutDates) {
+  const [state, formAction, pending] = useActionState(deleteTime, {
+      success: false,
+      message: "",
+    });
+  // Set styling.
+  let style: "primary" | "secondary" | "terciary" = "primary";
+  if (minutesAmount < 60) {
+    style = "primary";
+  }
+  if (minutesAmount >= 60 && minutesAmount <= 120) {
+    style = "secondary";
+  }
+  if (minutesAmount > 120) {
+    style = "terciary";
+  }
+
   const timeClasses = timeRecipe({ style });
+
+  if (state.success) {
+    return null;
+  }
+
   return (
     <div className={timeClasses.root}>
       <p>
-        <b>[{minutes}]</b> {description}
+        <b>[{minutesAmount}]</b> {description}
       </p>
-      <a href="" className={timeClasses.close}>
-        <Image
-          src={"/assets/icons/close.png"}
-          alt="Cross icon"
-          width={24}
-          height={24}
-        />
-      </a>
+      {!state.success && <p className={css({fontWeight:'bolder'})}>{state.message}</p>}
+      <form action={formAction}>
+        <button
+          name="time-id"
+          value={id}
+          type="submit"
+          disabled = {pending}
+          className={timeClasses.close}
+        >
+          <Image
+            src={"/assets/icons/close.png"}
+            alt="Cross icon"
+            width={24}
+            height={24}
+          />
+        </button>
+      </form>
     </div>
   );
 }
 
 type TimeWrapper = {
-  title: string,
+  title: string;
   children: ReactNode;
 };
 

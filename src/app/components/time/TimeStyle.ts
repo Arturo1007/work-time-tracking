@@ -9,7 +9,7 @@ export const timeRecipe = sva({
         transform: 'translateX(1px)'
       }
     },
-    close: { position: 'absolute', right: '2', top: '3' }
+    close: { position: 'absolute', right: '2', top: '3', cursor:'pointer' }
   },
   variants: {
     style: {

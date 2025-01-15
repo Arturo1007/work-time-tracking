@@ -1,16 +1,18 @@
 import Time, { TimeWrapper } from "./components/time/Time";
 import FormNewTime from "./components/form-new-time/FormNewTime";
 import TopSection from "./components/top-section/TopSection";
+import { fetchTime } from "./libs/data";
 
-export default function Home() {
+export default async function Home() {
+  let times = await fetchTime();
   return (
     <>
       <TopSection />
       <FormNewTime/>
       <TimeWrapper title="Today: ">
-        <Time description="Daily" minutes={60} style="primary" />
-        <Time description="Working on ticket #7664" minutes={120} style="secondary"/>
-        <Time description="Overflow" minutes={180} style="terciary" />
+        {times.map((time)=> {
+          return <Time id={time.id} description={time.description} minutesAmount={time.minutesAmount} key={time.id} />
+        })}
       </TimeWrapper>
     </>
   );
